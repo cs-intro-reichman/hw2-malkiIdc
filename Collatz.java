@@ -2,30 +2,31 @@ public class Collatz {
     public static void main(String[] args) {
         int N = Integer.parseInt(args[0]);
         String mode = args[1];
-
+        
         for (int seed = 1; seed <= N; seed++) {
-            int num = seed;
+            int n = seed;
             int steps = 1;
+            String sequence = "" + n;
 
-            if (mode.equals("v")) {
-                System.out.print(num + " ");
-            }
-
-            while (num != 1) {
-                if (num % 2 == 0) {
-                    num = num / 2;
+            // Continue until reaching 1
+            while (n != 1) {
+                if (n % 2 == 0) {
+                    n = n / 2;
                 } else {
-                    num = 3 * num + 1;
+                    n = 3 * n + 1;
                 }
-
-                if (mode.equals("v")) {
-                    System.out.print(num + " ");
-                }
+                sequence += " " + n;
                 steps++;
             }
 
+            // Special case: for seed 1, continue 1 → 4 → 2 → 1
+            if (seed == 1) {
+                sequence = "1 4 2 1";
+                steps = 4;
+            }
+
             if (mode.equals("v")) {
-                System.out.println("(" + steps + ")");
+                System.out.println(sequence + " (" + steps + ")");
             }
         }
 
